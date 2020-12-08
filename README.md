@@ -2,7 +2,7 @@
 
 # Diagram
 
-![Diagram](https://i.ibb.co/Q8q42rH/dbimage.png)
+![Diagram](https://i.ibb.co/WvV89p1/dbimage.pngg)
 
 # Script
 

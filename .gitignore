@@ -1,3 +1,6 @@
 .idea/
 target/
 *.iml
+src/main/resources/dependicies
+tokens/
+src/main/resources/credentials.json

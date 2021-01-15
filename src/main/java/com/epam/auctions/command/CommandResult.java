@@ -8,7 +8,8 @@ import lombok.Setter;
 public class CommandResult {
     public enum ResponseType {
         FORWARD,
-        REDIRECT
+        REDIRECT,
+        NO_ACTION
     }
     /**
      * {@link ResponseType} response type

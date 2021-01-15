@@ -16,9 +16,9 @@
             <a class="navbar-brand" href="/">TheAuctions</a>
             <div class="" id="navbarText">
                 <div class="button-group">
-                    <a href="/join?command=login" class="btn btn-light" type="button"><fmt:message
+                    <a href="/join?command=get-login" class="btn btn-light" type="button"><fmt:message
                             key="main.login"/></a>
-                    <a href="/join?command=signup" class="btn btn-light" type="button"><fmt:message
+                    <a href="/join?command=get-signup" class="btn btn-light" type="button"><fmt:message
                             key="main.signup"/></a>
                 </div>
             </div>

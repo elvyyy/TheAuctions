@@ -10,6 +10,10 @@ a {
   text-decoration: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .box-reg {
   margin: 50px auto;
   width: 500px;
@@ -17,10 +21,6 @@ a {
   background-color: #F4F7F6;
   font-family: Apercu, sans-serif;
   font-size: 17px;
-
-  .hidden {
-    display: none;
-  }
 
   h3 {
     margin: 0 0 40px;

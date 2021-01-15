@@ -21,7 +21,7 @@ public final class DBConnectionPool implements ConnectionPool {
     private BlockingQueue<Connection> availableConnections;
 
     private DBConnectionPool() {
-        url = "jdbc:mysql://localhost:3306/jwd_auctions";
+        url = "jdbc:mysql://localhost:3306/jwd_auctions?characterEncoding=UTF-8";
         user = "root";
         password = "Ben432417";
         availableConnections = new ArrayBlockingQueue<>(20);

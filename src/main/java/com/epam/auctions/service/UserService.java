@@ -4,5 +4,5 @@ import com.epam.auctions.entity.User;
 
 public interface UserService {
     User register(User user);
-    User getUser(String username);
+    User findByUsername(String username);
 }

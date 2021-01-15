@@ -56,7 +56,7 @@
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="icon" href="/static/media/icons/favicon16.png" sizes="16x16" type="image/png">
     <link rel="icon" href="/static/media/icons/favicon32.png" sizes="32x32" type="image/png">
-    <title><fmt:message key="main.title"/></title>
+    <title><fmt:message key="error.label.404.title"/></title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>

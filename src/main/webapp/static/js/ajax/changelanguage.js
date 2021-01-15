@@ -1,8 +1,8 @@
 function changeLanguage(lang) {
     $.ajax({
-        url: '/ajax/html/change/lang',
+        url: '/join',
         type: "GET",
         dataType: "html",
-        data: { lang: lang },
+        data: { command: 'set-locale', lang: lang},
     }).done(() => location.reload());
 };

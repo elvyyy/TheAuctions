@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 
 public final class JDBCUtils {
     private JDBCUtils() {
@@ -29,6 +28,15 @@ public final class JDBCUtils {
             populateStatement(statement, params);
             ResultSet resultSet = statement.executeQuery();
             return handler.handle(resultSet);
+        }
+    }
+
+    public static long count(Connection connection, String sql, Object... params) throws SQLException {
+        try(PreparedStatement statement = connection.prepareStatement(sql)) {
+            populateStatement(statement, params);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getLong(1);
         }
     }
 

@@ -2,7 +2,9 @@ package com.epam.auctions.controller;
 
 import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandFactory;
-import com.epam.auctions.command.RequestContext;
+import com.epam.auctions.command.CommandResult;
+import com.epam.auctions.constant.Page;
+import com.epam.auctions.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -27,23 +29,17 @@ public class JoinController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        RequestContext requestContext = new RequestContext.Builder()
-//                .parseHttpServletRequest(req)
-//                .build();
-//
-//        Command command = CommandFactory.INSTANCE.getCommand(requestContext);
-//        command.execute(requestContext);
-
-        req.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(req, resp);
+        processRequest(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestContext requestContext = new RequestContext.Builder()
-                .parseHttpServletRequest(req)
-                .build();
+        processRequest(req, resp);
+    }
 
-        Command command = CommandFactory.INSTANCE.getCommand(requestContext);
-        command.execute(requestContext);
+    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        Command command = CommandFactory.INSTANCE.getCommand(req);
+        CommandResult result = command.execute(req, resp);
+        WebUtils.processRouteRequest(result, req, resp, Page.SIGNUP_PAGE);
     }
 }

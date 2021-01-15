@@ -1,7 +1,5 @@
 package com.epam.auctions.entity;
 
-import lombok.Builder;
-
 import java.io.Serializable;
 import java.util.Objects;
 

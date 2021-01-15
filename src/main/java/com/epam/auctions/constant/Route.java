@@ -1,4 +1,4 @@
-package com.epam.auctions.context;
+package com.epam.auctions.constant;
 
 public enum Route {
     HOME_PAGE("/index.jsp");

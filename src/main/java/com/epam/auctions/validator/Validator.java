@@ -1,9 +1,10 @@
 package com.epam.auctions.validator;
 
-import com.epam.auctions.command.RequestContext;
+import com.epam.auctions.entity.Entity;
+import com.epam.auctions.exception.FormValidationException;
 
-import java.util.Set;
-import java.util.function.Function;
+import javax.servlet.http.HttpServletRequest;
 
-public interface Validator extends Function<RequestContext, Set<Violation>> {
+public interface Validator<T extends Entity<? extends Number>> {
+    T validate(HttpServletRequest req) throws FormValidationException;
 }

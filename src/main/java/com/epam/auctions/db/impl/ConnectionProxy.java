@@ -1,5 +1,7 @@
 package com.epam.auctions.db.impl;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
@@ -20,6 +22,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+@Slf4j
 public class ConnectionProxy implements Connection {
     private Connection connection;
 

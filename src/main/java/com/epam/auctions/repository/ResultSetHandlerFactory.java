@@ -19,8 +19,8 @@ public final class ResultSetHandlerFactory {
         user.setFirstName(resultSet.getString("first_name"));
         user.setMiddleName(resultSet.getString("middle_name"));
         user.setLastName(resultSet.getString("last_name"));
-        user.setUserRole(UserRole.valueOf(resultSet.getString("role_name")));
-        user.setUserStatus(UserStatus.valueOf(resultSet.getString("status")));
+        user.setUserRole(UserRole.fromId(resultSet.getInt("user_role_id")));
+        user.setUserStatus(UserStatus.fromId(resultSet.getInt("user_status_id")));
         return user;
     };
 

@@ -1,18 +1,17 @@
 package com.epam.auctions.repository.impl;
 
-import com.epam.auctions.db.impl.DBConnectionPool;
+import com.epam.auctions.annotation.Transactional;
 import com.epam.auctions.entity.User;
-import com.epam.auctions.exception.AllConnectionsBusy;
 import com.epam.auctions.exception.RepositoryException;
+import com.epam.auctions.repository.JDBCUtils;
 import com.epam.auctions.repository.Repository;
 import com.epam.auctions.repository.ResultSetHandler;
 import com.epam.auctions.repository.ResultSetHandlerFactory;
 import com.epam.auctions.repository.specification.SqlSpecification;
-import com.epam.auctions.util.JDBCUtils;
 import org.intellij.lang.annotations.Language;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepository implements Repository<User> {
@@ -24,10 +23,17 @@ public class UserRepository implements Repository<User> {
                     "VALUE (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     @Language("MySQL")
+    private static final String SQL_SELECT_USER =
+            "SELECT id, username, email, password, first_name, middle_name, last_name, user_role_id, user_status_id FROM users";
+
+    @Language("MySQL")
     private static final String SQL_COUNT_USER = "SELECT COUNT(*) FROM users";
 
     private static final ResultSetHandler<Optional<User>> userResultSetHandler =
             ResultSetHandlerFactory.getSingleResultSetHandler(ResultSetHandlerFactory.USER_RESULT_SET_HANDLER);
+
+    private static final ResultSetHandler<List<User>> usersResultSetHandler =
+            ResultSetHandlerFactory.getListResultSetHandler(ResultSetHandlerFactory.USER_RESULT_SET_HANDLER);
 
     private static final ResultSetHandler<Integer> userIdSetHandler = rs -> {
         if (rs.next()) {
@@ -39,16 +45,17 @@ public class UserRepository implements Repository<User> {
 
 
     @Override
-    public User insert(User entity) throws SQLException {
-        try (Connection connection = DBConnectionPool.INSTANCE.getConnection()) {
-            Integer id = JDBCUtils.insert(connection, SQL_CREATE_USER, userIdSetHandler,
-                    entity.getUsername(), entity.getEmail(),
-                    entity.getPassword(), entity.getFirstName(),
-                    entity.getMiddleName(), entity.getLastName(),
-                    entity.getUserRole().getId(), entity.getUserStatus().getId());
-            entity.setId(id);
-            return entity;
-        }
+    @Transactional
+    public User insert(User entity) {
+        Integer id = JDBCUtils.insert(JDBCUtils.getConnection(),
+                SQL_CREATE_USER, userIdSetHandler,
+                entity.getUsername(), entity.getEmail(),
+                entity.getPassword(), entity.getFirstName(),
+                entity.getMiddleName(), entity.getLastName(),
+                entity.getUserRole().getId(), entity.getUserStatus().getId());
+        entity.setId(id);
+        return entity;
+
     }
 
     @Override
@@ -62,12 +69,38 @@ public class UserRepository implements Repository<User> {
     }
 
     @Override
+    @Transactional
     public long count(SqlSpecification specification) throws RepositoryException {
-        try(Connection connection = DBConnectionPool.INSTANCE.getConnection()) {
-            return JDBCUtils.count(connection,
-                    specification.getSql(SQL_COUNT_USER), specification.getParameters());
-        } catch (SQLException | AllConnectionsBusy e) {
-            throw new RepositoryException("Cannot process count operation");
-        }
+        return JDBCUtils.count(JDBCUtils.getConnection(),
+                specification.getSql(SQL_COUNT_USER),
+                specification.getParameters());
+    }
+
+    @Override
+    @Transactional(read = true)
+    public Optional<User> select(SqlSpecification specification) {
+//        try (Connection connection = DBConnectionPool.INSTANCE.getConnection()) {
+//            return JDBCUtils.select(connection,
+//                    specification.getSql(SQL_SELECT_USER),
+//                    userResultSetHandler,
+//                    specification.getParameters());
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//            // TODO: exception handling
+//            return Optional.empty();
+//        }
+        return JDBCUtils.select(JDBCUtils.getConnection(),
+                specification.getSql(SQL_SELECT_USER),
+                userResultSetHandler,
+                specification.getParameters());
+    }
+
+    @Override
+    @Transactional
+    public Collection<User> selectAll(SqlSpecification specification) {
+        return JDBCUtils.select(JDBCUtils.getConnection(),
+                specification.getSql(SQL_SELECT_USER),
+                usersResultSetHandler,
+                specification.getParameters());
     }
 }

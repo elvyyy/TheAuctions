@@ -3,14 +3,20 @@ package com.epam.auctions.service.impl;
 import com.epam.auctions.entity.User;
 import com.epam.auctions.repository.Repository;
 import com.epam.auctions.repository.impl.UserRepository;
+import com.epam.auctions.repository.specification.UsernameSpecification;
 import com.epam.auctions.service.UserService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
-@Slf4j
 public enum UserServiceImpl implements UserService {
     INSTANCE;
+
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     Repository<User> repository = new UserRepository();
 
@@ -24,7 +30,7 @@ public enum UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(final String username) {
-        return null;
+    public Optional<User> findByUsername(final String username) {
+        return repository.select(new UsernameSpecification(username));
     }
 }

@@ -2,7 +2,10 @@ package com.epam.auctions.service;
 
 import com.epam.auctions.entity.User;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface UserService {
     User register(User user);
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 }

@@ -4,7 +4,6 @@ import com.epam.auctions.db.impl.DBConnectionPool;
 import com.epam.auctions.exception.RepositoryException;
 import com.epam.auctions.repository.JDBCUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;

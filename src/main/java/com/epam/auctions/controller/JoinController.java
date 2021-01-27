@@ -4,6 +4,7 @@ import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandFactory;
 import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.constant.Page;
+import com.epam.auctions.entity.User;
 import com.epam.auctions.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +41,6 @@ public class JoinController extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Command command = CommandFactory.INSTANCE.getCommand(req);
         CommandResult result = command.execute(req, resp);
-        WebUtils.processRouteRequest(result, req, resp, Page.SIGNUP_PAGE);
+        WebUtils.processRouteRequest(result, req, resp, Page.LOGIN_PAGE);
     }
 }

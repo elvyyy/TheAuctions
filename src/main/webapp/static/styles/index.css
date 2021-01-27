@@ -153,6 +153,14 @@ a {
   text-decoration: none;
 }
 
+.load-indicator {
+  background: url("/static/media/img/loading.gif") no-repeat center center;
+  height: 38px;
+  width: 38px;
+  display: inline-block;
+  border: none;
+}
+
 .footer-links.inline li {
   display: inline-block;
 }

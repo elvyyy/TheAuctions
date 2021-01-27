@@ -175,6 +175,13 @@ a {
   }
 }
 
+.load-indicator {
+  background: url('/static/media/img/loading.gif') no-repeat center center;
+  height: 38px;
+  width: 38px;
+  display: inline-block;
+  border: none;
+}
 
 //.footer-links li:active, .footer-links li:focus, .footer-links li:hover {
 //  color: #3366cc;

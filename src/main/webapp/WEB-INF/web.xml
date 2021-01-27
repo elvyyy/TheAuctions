@@ -7,6 +7,7 @@
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
 
+
     <filter>
         <filter-name>XSSFilter</filter-name>
         <filter-class>com.cj.xss.XSSFilter</filter-class>

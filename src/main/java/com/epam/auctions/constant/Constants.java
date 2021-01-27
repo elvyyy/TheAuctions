@@ -10,16 +10,18 @@ public enum Constants {
     EMAIL("email"),
     PASSWORD("password"),
     CONFIRM_PASSWORD("confirm-password"),
-    LANGUAGE("lang");
+    LANGUAGE("lang"),
+    USER("user");
 
+    public static final int LOTS_PER_PAGE = 10;
 
-    private String command;
+    private String value;
 
-    Constants(final String command) {
-        this.command = command;
+    Constants(final String value) {
+        this.value = value;
     }
 
     public String value() {
-        return command;
+        return value;
     }
 }

@@ -1,10 +1,5 @@
 package com.epam.auctions.command;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CommandResult {
     public enum ResponseType {
         FORWARD,
@@ -18,6 +13,22 @@ public class CommandResult {
     private String page;
 
     public CommandResult() {
+    }
+
+    public ResponseType getResponseType() {
+        return responseType;
+    }
+
+    public void setResponseType(ResponseType responseType) {
+        this.responseType = responseType;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 
     public CommandResult(ResponseType responseType, String page) {

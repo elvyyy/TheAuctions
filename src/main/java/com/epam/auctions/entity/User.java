@@ -25,7 +25,7 @@ public class User extends Entity<Integer> {
     private UserStatus userStatus;
     private UserRole userRole;
     private List<Integer> lotNumbers;
-    // TODO: lots
+
     public String getUsername() {
         return username;
     }

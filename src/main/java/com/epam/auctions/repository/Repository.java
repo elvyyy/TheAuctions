@@ -8,15 +8,15 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface Repository<T> {
-    T insert(T entity) throws SQLException;
+    T insert(T entity);
 
     boolean update(T entity);
 
     boolean delete(T entity);
 
-    long count(SqlSpecification specification) throws RepositoryException;
+    long count(SqlSpecification specification, Object... parameters) throws RepositoryException;
 
-    Optional<T> select(SqlSpecification specification);
+    Optional<T> select(SqlSpecification specification, Object... parameters);
 
-    Collection<T> selectAll(SqlSpecification specification);
+    Collection<T> selectAll(SqlSpecification specification, Object... parameters);
 }

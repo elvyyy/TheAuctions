@@ -1,6 +1,7 @@
 package com.epam.auctions.util;
 
 import com.epam.auctions.command.CommandResult;
+import com.epam.auctions.constant.Constants;
 import com.epam.auctions.constant.Page;
 
 import javax.servlet.ServletException;
@@ -43,5 +44,13 @@ public class WebUtils {
                 break;
             }
         }
+    }
+
+    public static int calculatePageCount(long totalCount) {
+        int pageCount = (int) (totalCount / Constants.LOTS_PER_PAGE);
+        if (pageCount * Constants.LOTS_PER_PAGE != totalCount) {
+            pageCount++;
+        }
+        return pageCount;
     }
 }

@@ -7,7 +7,7 @@ public class LotStatusSpecification implements SqlSpecification{
     private final String SQL_SPECIFICATION = "WHERE lot_status_id=?";
     @Override
     public String getSql(String baseSql) {
-        return SQL_SPECIFICATION;
+        return String.join(" ", baseSql, SQL_SPECIFICATION);
     }
 
     @Override

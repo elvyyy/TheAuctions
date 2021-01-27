@@ -8,7 +8,7 @@ public class LotCreatedBySpecification implements SqlSpecification{
 
     @Override
     public String getSql(String baseSql) {
-        return SQL_SPECIFICATION;
+        return String.join(" ", baseSql, SQL_SPECIFICATION);
     }
 
     @Override

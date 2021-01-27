@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public final class JDBCUtils {
     private static final Logger LOG = LoggerFactory.getLogger(JDBCUtils.class);
@@ -21,8 +22,8 @@ public final class JDBCUtils {
     public static Connection getConnection() {
         Connection connection = connections.get();
         if (connection == null) {
-            LOG.error("No connection retrived. Do you use @Transactional?");
-            throw new RuntimeException("Do you use Annotation @Transactional?");
+            LOG.debug("No connection retrieved. Do you use @Transactional?");
+            throw new RuntimeException("No connection retrieved. Do you use @Transactional?");
         }
         return connection;
     }
@@ -45,6 +46,21 @@ public final class JDBCUtils {
             ResultSet resultSet = statement.getGeneratedKeys();
             return handler.handle(resultSet);
         } catch (SQLException e) {
+            LOG.debug("", e);
+            throw new RepositoryException("Some error occurred while inserting data");
+        }
+    }
+
+    public static boolean delete(Connection connection, String sql, Object... params) {
+        try(PreparedStatement statement = connection.prepareStatement(sql)) {
+            populateStatement(statement, params);
+            int result = statement.executeUpdate();
+            if (result == 0) {
+                return false;
+            }
+            return true;
+        } catch (SQLException e) {
+            LOG.debug("", e);
             throw new RepositoryException("Some error occurred while inserting data");
         }
     }
@@ -55,6 +71,7 @@ public final class JDBCUtils {
             ResultSet resultSet = statement.executeQuery();
             return handler.handle(resultSet);
         } catch (SQLException e) {
+            LOG.debug("", e);
             throw new RepositoryException("Some error occurred while selecting data");
         }
     }

@@ -22,7 +22,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
-<div class="container-xxl">
+<div class="container-xxl full-screen-container">
     <div class="row">
         <aside class="col-3">
             <jsp:include page="fragments/aside.jsp"/>

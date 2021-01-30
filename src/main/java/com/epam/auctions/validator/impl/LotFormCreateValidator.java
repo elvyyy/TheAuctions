@@ -5,6 +5,8 @@ import com.epam.auctions.entity.Lot;
 import com.epam.auctions.entity.LotStatus;
 import com.epam.auctions.entity.User;
 import com.epam.auctions.exception.FormValidationException;
+import com.epam.auctions.service.LotService;
+import com.epam.auctions.service.impl.LotServiceImpl;
 import com.epam.auctions.util.FileUtils;
 import com.epam.auctions.validator.Validator;
 import org.slf4j.Logger;
@@ -20,11 +22,7 @@ import java.time.LocalDateTime;
 public class LotFormCreateValidator implements Validator {
     private static final Logger LOG = LoggerFactory.getLogger(LotFormCreateValidator.class);
 
-    private static final int MIN_30 = 30;
-    private static final int HOUR_1 = 60;
-    private static final int HOUR_2 = 2 * 60;
-    private static final int HOUR_24 = 24 * 60;
-    private static final int HOUR_48 = 48 * 60;
+    private LotService lotService = LotServiceImpl.INSTANCE;
 
     @Override
     public Entity<? extends Number> validate(HttpServletRequest req) throws FormValidationException {
@@ -60,22 +58,9 @@ public class LotFormCreateValidator implements Validator {
         return lot;
     }
 
-    private int getTimeDurationInMinutes(HttpServletRequest req) {
+    public int getTimeDurationInMinutes(HttpServletRequest req) {
         Integer choice = Integer.valueOf(req.getParameter("lot-time-duration"));
-        switch (choice) {
-            case 1:
-                return MIN_30;
-            case 2:
-                return HOUR_1;
-            case 3:
-                return HOUR_2;
-            case 4:
-                return HOUR_24;
-            case 5:
-                return HOUR_48;
-            default:
-                throw new FormValidationException("No such choice exception #" + choice);
-        }
+        return lotService.getDuration(choice);
     }
 
     private Part getImagePart(HttpServletRequest req) {

@@ -1,6 +1,7 @@
 package com.epam.auctions.repository;
 
 import com.epam.auctions.entity.Lot;
+import com.epam.auctions.entity.LotBid;
 import com.epam.auctions.entity.LotStatus;
 import com.epam.auctions.entity.User;
 import com.epam.auctions.entity.UserRole;
@@ -45,6 +46,15 @@ public final class ResultSetHandlerFactory {
         lot.setStartAt(startAt == null ? null : startAt.toLocalDateTime());
         lot.setDurationInMinutes(resultSet.getInt("duration"));
         return lot;
+    };
+
+    public static final ResultSetHandler<LotBid> LOT_BID_RESULT_SET_HANDLER = resultSet -> {
+        LotBid lotBid = new LotBid();
+        lotBid.setLotId(resultSet.getInt("lot_id"));
+        lotBid.setCreatedBy(resultSet.getString("username"));
+        lotBid.setCurrentBid(resultSet.getBigDecimal("current_bid"));
+        lotBid.setCreatedAt(resultSet.getTimestamp("created_at").toLocalDateTime());
+        return lotBid;
     };
 
     public static final <T> ResultSetHandler<Optional<T>> getSingleResultSetHandler(ResultSetHandler<T> resultSetHandler) {

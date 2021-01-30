@@ -21,7 +21,7 @@
 </head>
 <body>
 <jsp:include page="fragments/header.jsp"/>
-<div class="container-xxl" style="position: relative">
+<div class="container-xxl h-100" style="position: relative">
     <form method="post" action="/join?command=signup" onsubmit="return validate();" style="width: 400px" class="signup-form" novalidate="">
         <div class="form-row">
             <div class="row">

@@ -8,14 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="time" uri="/WEB-INF/tags.tld" %>
 <c:forEach var="lot" items="${lots}">
     <tr>
-        <th scope="row"><c:out value="${lot.id}"/></th>
+        <th scope="row"><a href="/feed?command=get-lot&l=${lot.id}">${lot.id}</a></th>
         <td><img src="${lot.photoPath}" height="150" width="150" alt="default"></td>
         <td>${lot.description}</td>
         <td>$3.42</td>
         <td>${lot.minimalBid}</td>
-        <td>${lot.startAt}</td>
-        <td>${lot.endAt}</td>
+        <td><time:localDateTime value="${lot.startAt}" format="short"/></td>
+        <td><time:localDateTime value="${lot.endAt}" format="short"/></td>
     </tr>
 </c:forEach>

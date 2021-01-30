@@ -9,25 +9,11 @@
         var bid = parseFloat(strBid.replace(',', '.'));
         if (bid < 0.10) {
             $('#validationNumeric').addClass('is-invalid');
+            return false;
         } else {
             $('#validationNumeric').removeClass('is-invalid');
         }
-
-        var lotId = parseInt($('#lotId').val());
-
-        $.ajax({
-            url: '/feed',
-            method: 'POST',
-            dataType: 'html',
-            data: {command: 'update-lot', lotId: lotId},
-            success: function (response) {
-                if (response.result == 'ok') {
-                    location.reload();
-                }
-            }
-        });
-
-        return false;
+        return true;
     };
 
     init();

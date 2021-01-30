@@ -23,8 +23,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
-<div class="container-xxl">
-
+<div class="container-xxl h-100">
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">

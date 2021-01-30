@@ -42,6 +42,9 @@ a {
 .box-reg .box-form-fields .row {
   margin: 0 0 20px;
 }
+.box-reg .full-screen-container {
+  min-height: 100% !important;
+}
 .box-reg .text-input {
   font-family: Apercu, sans-serif;
   font-stretch: 100%;

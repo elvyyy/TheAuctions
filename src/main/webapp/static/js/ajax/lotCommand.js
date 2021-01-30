@@ -19,3 +19,30 @@ function cancel(obj) {
         }
     });
 }
+
+function confirm(obj) {
+    var id = parseInt(obj.getAttribute('lotId'));
+
+    let $target = $("#lot" + id);
+
+    $.ajax({
+        url: '/feed',
+        method: 'post',
+        dataType: 'json',
+        data: {command: 'confirm-lot', lotId: id},
+        success: function (response) {
+            if (response.result == 'ok') {
+                $target.fadeTo(300, 0.01, function(){
+                    $(this).slideUp(150, function() {
+                        $(this).remove();
+                    });
+                });
+            } else if (response.result == 'fail') {
+                alert("Error! Operation cannot be done now.");
+            }
+        },
+        error: function (resp) {
+            console.log('error');
+        },
+    })
+}

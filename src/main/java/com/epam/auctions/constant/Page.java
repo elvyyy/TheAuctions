@@ -12,7 +12,8 @@ public enum Page {
     FEED_LOTS("/WEB-INF/jsp/fragments/lots.jsp"),
     PROFILE("/WEB-INF/jsp/fragments/profile.jsp"),
     ADMIN_PANEL("/WEB-INF/jsp/fragments/admin/panel.jsp"),
-    EDIT_LOT_PAGE("/WEB-INF/jsp/fragments/edit-lot-page.jsp");
+    EDIT_LOT_PAGE("/WEB-INF/jsp/fragments/edit-lot-page.jsp"),
+    LOT_PAGE("/WEB-INF/jsp/fragments/lot-page.jsp");
 
     private String page;
 

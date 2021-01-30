@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vlad
-  Date: 1/20/21
-  Time: 1:49 PM
+  Date: 1/27/21
+  Time: 12:05 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -24,13 +24,13 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
+<c:set var="lot" value="${requestScope.lot}" scope="request" />
 <div class="container-xxl h-100">
-    <form class="was-validated" method="post" action="/feed?command=create-lot" enctype="multipart/form-data">
+    <form class="was-validated" id="edit-lot-form" method="post" action="/feed?command=update-lot&lotId=${lot.id}">
         <div class="mb-3">
             <label for="validationTextarea" class="form-label"><fmt:message key="lot.create.form.description"/></label>
             <textarea class="form-control" id="validationTextarea" name="lot-title"
-                      placeholder="<fmt:message key="lot.create.form.description" />"
-                      maxlength="100" style="resize: none; height: 40px" required></textarea>
+                      maxlength="100" style="resize: none; height: 40px" required>${lot.description}</textarea>
             <div class="invalid-feedback">
                 <fmt:message key="lot.create.form.description.invalid"/>
             </div>
@@ -38,26 +38,23 @@
 
         <div class="mb-3">
             <label for="validationNumeric" class="form-label">Minimal bid</label>
-            <input id="validationNumeric" class="form-control" type="text" data-mask='0,00' name="minimal-bid" required/>
+            <input id="validationNumeric" class="form-control" type="text" value="${lot.minimalBid}" data-mask='0,00' name="minimal-bid" required />
+            <div class="invalid-feedback">
+                Ставка не может быть меньше $0.10
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="validationSelect" class="form-label"><fmt:message key="lot.create.form.duration"/></label>
             <select id="validationSelect" class="form-select" required
-                    name="lot-time-duration">
-                <option value="1" selected><fmt:message key="lot.create.form.duration.30min"/></option>
-                <option value="2"><fmt:message key="lot.create.form.duration.1hour"/></option>
-                <option value="3"><fmt:message key="lot.create.form.duration.2hours"/></option>
-                <option value="4"><fmt:message key="lot.create.form.duration.24hours"/></option>
-                <option value="5"><fmt:message key="lot.create.form.duration.48hours"/></option>
+                    name="lot-time-duration" >
+                <option value="1" <c:if test="${lot.durationInMinutes eq 30}">selected</c:if>><fmt:message key="lot.create.form.duration.30min"/></option>
+                <option value="2" <c:if test="${lot.durationInMinutes eq 60}">selected</c:if>><fmt:message key="lot.create.form.duration.1hour"/></option>
+                <option value="3" <c:if test="${lot.durationInMinutes eq 120}">selected</c:if>><fmt:message key="lot.create.form.duration.2hours"/></option>
+                <option value="4" <c:if test="${lot.durationInMinutes eq 1440}">selected</c:if>><fmt:message key="lot.create.form.duration.24hours"/></option>
+                <option value="5" <c:if test="${lot.durationInMinutes eq 2880}">selected</c:if>><fmt:message key="lot.create.form.duration.48hours"/></option>
             </select>
             <div class="invalid-feedback"><fmt:message key="lot.create.form.duration.invalid"/></div>
-        </div>
-        <div class="mb-3">
-            <label for="validationImage" class="form-label"><fmt:message key="lot.create.form.image" /></label>
-            <input id="validationImage" type="file" accept="image/*" class="form-control" name="lot-photo"
-                   aria-label="file example" required>
-            <div class="invalid-feedback"><fmt:message key="lot.create.form.image.invalid"/></div>
         </div>
         <div class="mb-3">
             <button class="btn btn-primary" type="submit"><fmt:message
@@ -66,6 +63,6 @@
     </form>
 </div>
 <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
-<script src="/static/js/validators/lotValidator.js"></script>
+<script src="/static/js/ajax/editLotPage.js"></script>
 </body>
 </html>

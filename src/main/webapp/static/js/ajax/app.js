@@ -26,7 +26,7 @@
         var btn = $('#load-more');
         convertButtonToLoader(btn, 'btn-success');
         var pageNumber = parseInt($('#lot-list').attr('data-page-number'));
-        var url = location.pathname + '?command=load-more&status=1&page=' + (pageNumber + 1) + '&' + location.search.substring(1);
+        var url = location.pathname + '?command=load-more&status=3&page=' + (pageNumber + 1) + '&' + location.search.substring(1);
         $.ajax({
             url : url,
             success : function(html) {

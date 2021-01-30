@@ -23,7 +23,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
-<div class="container-xxl">
+<div class="container-xxl h-100">
     <div id="lot-list" data-page-count="${pageCount}" data-page-number="1">
         <table class="table">
             <thead>
@@ -46,7 +46,8 @@
                     <td>${lot.durationInMinutes}</td>
                     <td>$${lot.minimalBid}</td>
                     <td>
-                        <button class="btn btn-success" id="acceptButton${lot.id}" onclick=""><fmt:message
+                        <button class="btn btn-success" id="acceptButton${lot.id}" lotId="${lot.id}"
+                                onclick="confirm(this)"><fmt:message
                                 key="non-verified-lots.admin.table.sixth-column-name"/></button>
                     </td>
                     <td>

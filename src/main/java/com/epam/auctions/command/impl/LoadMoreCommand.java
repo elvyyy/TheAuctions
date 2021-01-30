@@ -7,6 +7,7 @@ import com.epam.auctions.constant.Constants;
 import com.epam.auctions.constant.Page;
 import com.epam.auctions.entity.Lot;
 import com.epam.auctions.entity.LotStatus;
+import com.epam.auctions.form.SearchForm;
 import com.epam.auctions.service.LotService;
 
 import javax.servlet.ServletException;
@@ -24,9 +25,9 @@ public class LoadMoreCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest context, HttpServletResponse response) throws IOException, ServletException {
+        final SearchForm form = SearchForm.createFrom(context);
         final int page = Integer.valueOf(context.getParameter("page"));
-        final LotStatus lotStatus = LotStatus.fromId(Integer.valueOf(context.getParameter("status")));
-        final Collection<Lot> lots = lotService.selectAll(lotStatus, page, Constants.LOTS_PER_PAGE);
+        final Collection<Lot> lots = lotService.selectBySearchForm(form, page, Constants.LOTS_PER_PAGE);
         context.setAttribute("lots", lots);
         return new CommandResult(ResponseType.FORWARD, Page.FEED_LOTS.getPage());
     }

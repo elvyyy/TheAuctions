@@ -4,6 +4,7 @@ import com.epam.auctions.entity.User;
 import com.epam.auctions.repository.Repository;
 import com.epam.auctions.repository.impl.UserRepository;
 import com.epam.auctions.repository.specification.EmailSpecification;
+import com.epam.auctions.repository.specification.IdSpecification;
 import com.epam.auctions.repository.specification.UsernameSpecification;
 import com.epam.auctions.service.UserService;
 import org.slf4j.Logger;
@@ -33,6 +34,11 @@ public enum UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsername(final String username) {
         return repository.select(new UsernameSpecification(), username);
+    }
+
+    @Override
+    public Optional<User> findById(int id) {
+        return repository.select(new IdSpecification(), id);
     }
 
     @Override

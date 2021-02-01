@@ -57,16 +57,18 @@ public class WebUtils {
         return pageCount;
     }
 
-    public static CommandResult responseOk(HttpServletResponse resp) {
+    public static CommandResult responseOk(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String jsonResponse = Json.createObjectBuilder()
-                .add("result", "ok").toString();
-        return new CommandResult(ResponseType.NO_ACTION, jsonResponse);
+                .add("result", "ok").build().toString();
+        resp.getWriter().write(jsonResponse);
+        return new CommandResult(ResponseType.NO_ACTION, WebUtils.getCurrentRequestUrl(req));
     }
 
-    public static CommandResult responseFail(HttpServletResponse resp) {
+    public static CommandResult responseFail(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         final String jsonResponse = Json.createObjectBuilder()
-                .add("result", "none").toString();
-        return new CommandResult(ResponseType.NO_ACTION, jsonResponse);
+                .add("result", "none").build().toString();
+        resp.getWriter().write(jsonResponse);
+        return new CommandResult(ResponseType.NO_ACTION, WebUtils.getCurrentRequestUrl(req));
     }
 
     public static String changeQueryCommand(String query, CommandType replace, CommandType type) {

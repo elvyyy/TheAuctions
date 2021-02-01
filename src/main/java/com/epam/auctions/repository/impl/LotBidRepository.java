@@ -16,7 +16,7 @@ import java.util.Optional;
 public class LotBidRepository implements Repository<LotBid> {
     @Language("SQL")
     private static final String SQL_CREATE_BID =
-            "INSERT INTO lot_history(lot_id, current_bid, created_by, created_at VALUE (?, ?, ?, ?)";
+            "INSERT INTO lot_history(lot_id, current_bid, created_by, created_at) VALUE (?, ?, ?, ?)";
 
     @Language("SQL")
     public static final String SQL_SELECT_BID =
@@ -39,7 +39,9 @@ public class LotBidRepository implements Repository<LotBid> {
     @Override
     @Transactional
     public LotBid insert(LotBid entity) {
-        JDBCUtils.insert(JDBCUtils.getConnection(), SQL_CREATE_BID, insertHandler);
+        JDBCUtils.insert(JDBCUtils.getConnection(), SQL_CREATE_BID, insertHandler,
+                entity.getLotId(), entity.getCurrentBid(),
+                entity.getCreatedBy(), entity.getCreatedAt());
         return entity;
     }
 

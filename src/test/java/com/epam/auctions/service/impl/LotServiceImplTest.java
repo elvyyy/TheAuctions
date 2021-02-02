@@ -68,32 +68,32 @@ public class LotServiceImplTest {
 
 
     @Test
-    public void createTest() {
+    public void verifyThatLotServiceWillCallInsertOnLotRepositoryOneTime() {
         lotService.create(lot);
         verify(lotRepository, times(1))
                 .insert(lot);
     }
 
     @Test
-    void findByIdTest() {
+    void getLotWithIdThatEqualsToCertainId_When_FindByIdCalled_With_CertainId() {
         int id = lot.getId();
         lot.setLotStatus(LotStatus.CANCELED);
 
         Mockito.when(lotRepository.select(any(IdSpecification.class), eq(id)))
                 .thenReturn(Optional.of(lot));
 
-        final Optional<Lot> lotOptional = lotService.findById(id);
+        final Optional<Lot> expected = lotService.findById(id);
 
         Mockito.verify(lotRepository, Mockito.times(1))
                 .select(any(IdSpecification.class), eq(id));
 
-        Assert.assertTrue(lotOptional.isPresent());
-        Assert.assertEquals(lot.getId(), lotOptional.get().getId());
-        Assert.assertEquals(lot.getLotStatus(), lotOptional.get().getLotStatus());
+        Assert.assertTrue(expected.isPresent());
+        Assert.assertEquals(lot.getId(), expected.get().getId());
+        Assert.assertEquals(lot.getLotStatus(), expected.get().getLotStatus());
     }
 
     @Test
-    void selectAllByLotStatusTest() {
+    void verifyThatSelectAllWillBeCalledByLotRepositoryOneTime_When_LotServiceSelectAllCalled_With_LotStatus() {
         final Collection<Lot> lots = lotService.selectAll(LotStatus.CANCELED,
                 1, Constants.LOTS_PER_PAGE);
 
@@ -103,7 +103,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void selectAllBySpecificationTest() {
+    public void verifyThatSelectAllWillBeCalledByLotRepositoryOneTime_When_LotServiceSelectAllCalled_With_IdSpecification() {
         SqlSpecification specification = new IdSpecification();
         Object[] params = new Object[0];
 
@@ -114,7 +114,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void selectBySearchForm() {
+    public void verifyThatSelectAllWillBeCalledByLotRepository_When_SelectBySearchFormCalled_WithSearchForm() {
         String query = "query";
         String lotStatusId = "lotStatusId";
         int page = 0;
@@ -132,7 +132,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void selectByUserId() {
+    public void verifyThatSelectAllWillBeCalledByLotRepositoryOneTime_When_SelectByUserIdCalled_With_UserId() {
         int userId = 1;
         int page = 0;
         int lotsPerPage = 0;
@@ -148,7 +148,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void countLotsBySearchForm() {
+    public void verifyThatCountWillBeCalledByLotRepositoryOneTime_When_CountLotsBySearchFormCalled_With_SearchForm() {
         String query = "query";
         String lotStatusId = "lotStatusId";
 
@@ -161,7 +161,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void update() {
+    public void verifyThatUpdateWillBeCalledByLotRepositoryOneTime_When_UpdateCalled_WithLot() {
         lotService.update(lot);
 
         verify(lotRepository, times(1))
@@ -169,7 +169,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void updateLotStatus() {
+    public void verifyThatSelectAndUpdateWillBeCalledByLotRepositoryOneTime_When_UpdateLotStatusCalled_WithLotIdLotStatusAndVerifiedBy() {
         int lotId = 1;
         LotStatus lotStatus = LotStatus.ACTIVE;
         int verifiedBy = 0;
@@ -189,7 +189,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void countAllLots() {
+    public void verifyThatCountWillBeCalledByLotRepositoryOneTime_When_CountAllLotsCalled_With_LotStatus() {
         LotStatus lotStatus = LotStatus.ACTIVE;
 
         lotService.countAllLots(lotStatus);
@@ -200,7 +200,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void getLotBidsByLotId() {
+    public void verifyThatSelectAllWillBeCalledByLotBidRepositoryOneTime_When_GetLotBidsCalled_With_LotId() {
         int lotId = 0;
 
         lotService.getLotBids(lotId);
@@ -211,7 +211,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void getLotBidsByString() {
+    public void verifyThatSelectAllWillBeCalledOneTime_When_GetLotBidsCalled_With_Username() {
         String username = "username";
 
         lotService.getLotBids(username);
@@ -222,7 +222,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void getMaxBid() {
+    public void verifyThatSelectAllWillBeCalledByLotBidRepositoryOneTime_When_GetMaxBidCalled_With_LotId() {
         int lotId = 0;
 
         LotBid lotBid = new LotBid(lotId, BigDecimal.TEN, "");
@@ -244,7 +244,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void getDuration() {
+    public void getDuration_When_GetDurationCalled_With_LegalArgs() {
         int[] expectedValues = {30, 60, 2 * 60, 24 * 60, 48 * 60};
 
         for (int i = 0; i < expectedValues.length; ) {
@@ -253,7 +253,7 @@ public class LotServiceImplTest {
     }
 
     @Test
-    public void getNoSuchElementExceptionWhenCallGetDurationWithIllegalParameter() {
+    public void getNoSuchElementException_When_CallGetDuration_With_IllegalParameter() {
         int option = 1000;
 
         assertThrows(NoSuchElementException.class,

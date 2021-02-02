@@ -54,7 +54,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void register() {
+    public void verifyThatInsertWillBeCalledByUserRepositoryOneTime_When_RegisterCalled_With_User() {
         userService.register(user);
 
         verify(repository, times(1))
@@ -62,7 +62,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void findById() {
+    public void verifyThatSelectWillBeCalledByUserRepositoryOneTime_When_FindByIdCalled_With_UserId() {
         doReturn(Optional.of(user))
                 .when(repository)
                 .select(any(SqlSpecification.class), eq(user.getId()));
@@ -77,7 +77,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void findByUsername() {
+    public void verifyThatSelectWillBeCalledByUserRepositoryOneTime_When_FindByUsernameCalled_With_Username() {
         doReturn(Optional.of(user))
                 .when(repository)
                 .select(any(SqlSpecification.class), eq(user.getUsername()));
@@ -92,7 +92,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void findByEmail() {
+    public void verifyThatSelectWillBeCalledByUserRepositoryOneTime_WhenFindByEmailCalled_With_UserEmail() {
         doReturn(Optional.of(user))
                 .when(repository)
                 .select(any(SqlSpecification.class), eq(user.getEmail()));
@@ -107,7 +107,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void update() {
+    public void verifyThatUpdateWillBeCalledByUserRepositoryOneTime_When_UpdateCalled_With_User() {
         userService.update(user);
 
         verify(repository, times(1))

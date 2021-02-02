@@ -54,7 +54,7 @@ public class AuctionsServiceImplTest {
     }
 
     @Test
-    public void scheduleLotCompleteTest() {
+    public void verifyThatLotWillBeCompleted_AfterCertainAmountOfTime() {
         auctionService.scheduleLotComplete(lot, 1, TimeUnit.NANOSECONDS);
 
         verify(executorService, times(1))

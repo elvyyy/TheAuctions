@@ -8,11 +8,11 @@ function cancel(obj) {
         url: '/feed',
         method: 'GET',
         dataType: 'json',
-        data: { command: 'cancel-lot', lotId: lotID },
-    }).done(function(response) {
+        data: {command: 'cancel-lot', lotId: lotID},
+    }).done(function (response) {
         if (response.result == true) {
-            $target.fadeTo(300, 0.01, function(){
-                $(this).slideUp(150, function() {
+            $target.fadeTo(300, 0.01, function () {
+                $(this).slideUp(150, function () {
                     $(this).remove();
                 });
             });
@@ -32,8 +32,8 @@ function confirm(obj) {
         data: {command: 'confirm-lot', lotId: id},
         success: function (response) {
             if (response.result == 'ok') {
-                $target.fadeTo(300, 0.01, function(){
-                    $(this).slideUp(150, function() {
+                $target.fadeTo(300, 0.01, function () {
+                    $(this).slideUp(150, function () {
                         $(this).remove();
                     });
                 });

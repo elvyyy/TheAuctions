@@ -1,5 +1,5 @@
 ;$(function () {
-    var init = function (){
+    var init = function () {
         $('#load-more').click(loadMoreLots);
     };
 
@@ -28,19 +28,19 @@
         var pageNumber = parseInt($('#lot-list').attr('data-page-number'));
         var url = location.pathname + '?command=load-more&status=3&page=' + (pageNumber + 1) + '&' + location.search.substring(1);
         $.ajax({
-            url : url,
-            success : function(html) {
+            url: url,
+            success: function (html) {
                 $('#lot-list tbody').append(html);
                 pageNumber++;
                 var pageCount = parseInt($('#lot-list').attr('data-page-count'));
                 $('#lot-list').attr('data-page-number', pageNumber);
-                if(pageNumber < pageCount) {
+                if (pageNumber < pageCount) {
                     convertLoaderToButton(btn, 'btn-success', loadMoreLots);
                 } else {
                     btn.remove();
                 }
             },
-            error : function(data) {
+            error: function (data) {
                 convertLoaderToButton(btn, 'btn-success', loadMoreLots);
             },
         });

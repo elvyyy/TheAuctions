@@ -14,7 +14,6 @@
         <th scope="row"><a href="/feed?command=get-lot&l=${lot.id}">${lot.id}</a></th>
         <td><img src="${lot.photoPath}" height="150" width="150" alt="default"></td>
         <td>${lot.description}</td>
-        <td>$3.42</td>
         <td>${lot.minimalBid}</td>
         <td><time:localDateTime value="${lot.startAt}" format="short"/></td>
         <td><time:localDateTime value="${lot.endAt}" format="short"/></td>

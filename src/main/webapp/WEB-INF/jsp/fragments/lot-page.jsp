@@ -9,6 +9,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="time" uri="http://mycompany.com" %>
+<%@ page import="com.epam.auctions.entity.LotStatus" %>
+<fmt:setLocale value="${ not empty sessionScope.locale ? sessionScope.locale : pageContext.request.locale }"
+               scope="session"/>
+<fmt:setBundle basename="message"/>
+<c:set var="user" value="${sessionScope.user}" scope="request"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,27 +27,58 @@
 <body>
 <c:set var="lot" value="${requestScope.lot}" scope="request"/>
 <c:set var="bid" value="${requestScope.bid}" scope="request"/>
+<c:set var="user" value="${sessionScope.user}" scope="request"/>
 <jsp:include page="/WEB-INF/jsp/fragments/header.jsp"/>
 <div class="container">
-
-    <h1>Shopping Cart</h1>
+    <c:if test="${lot.lotStatus eq LotStatus.COMPLETED}">
+        <div class="modal fade" id="change_status_modal" data-bs-target="#change_status_modal" tabindex="-1"
+             role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <fmt:message key="lot.completed.status" />
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        <small class="success-change-role">
+                            <c:choose>
+                                <c:when test="${not empty bid and bid.createdBy eq user.username}">
+                                    <fmt:message key="lot.completed.winner" />
+                                </c:when>
+                                <c:otherwise>
+                                    <fmt:message key="lot.completed.closed" />
+                                </c:otherwise>
+                            </c:choose>
+                        </small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message
+                                key="admin.panel.close"/></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:if>
+    <h1><fmt:message key="lot.number"/> №${lot.id}</h1>
+    <input type="hidden" id="lotId" value="${lot.id}">
     <hr>
     <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
-            <th>Item</th>
-            <th>Конец</th>
-            <th>Created by</th>
-            <th>Min Price</th>
+            <th><fmt:message key="lot.create.form.description"/></th>
+            <th><fmt:message key="lots-page.table.ended-at"/></th>
+            <th><fmt:message key="lots-page.table.sixth-column"/></th>
+            <th><fmt:message key="lots-page.table.fifth-column"/></th>
         </tr>
         <tr>
             <td>${lot.description}</td>
             <td><time:localDateTime value="${lot.endAt}" format="short"/></td>
-            <td></td>
+            <td><time:localDateTime value="${lot.startAt}" format="short"/></td>
             <td>${lot.minimalBid}</td>
         </tr>
         <tr>
-            <th colspan="3"><span class="pull-right">Текущая ставка</span></th>
+            <th colspan="3"><span class="pull-right"><fmt:message key="lot-page.current-bid"/></span></th>
             <th id="currentBid">
                 <c:choose>
                     <c:when test="${not empty bid}">${bid.currentBid}</c:when>
@@ -51,7 +87,7 @@
             </th>
         </tr>
         <tr>
-            <th colspan="3"><span class="pull-right">Возможный победитель</span></th>
+            <th colspan="3"><span class="pull-right"><fmt:message key="lot-page.probable-winner"/></span></th>
             <th id="currentBidCreatedBy">
                 <c:choose>
                     <c:when test="${not empty bid}">${bid.createdBy}</c:when>
@@ -60,17 +96,18 @@
             </th>
         </tr>
         <tr>
-            <th colspan="3"><span class="pull-right">Total</span></th>
-            <th>£300.00</th>
-        </tr>
-        <tr>
             <td><a href="#" class="btn btn-primary">Continue Shopping</a></td>
-            <td colspan="3"><a href="#" class="pull-right btn btn-success">Checkout</a></td>
+            <td colspan="3">
+                <a href="#" class="pull-right btn btn-success make-bid-btn" bid="1"><fmt:message
+                        key="lot-page.up10"/></a>
+                <a href="#" class="pull-right btn btn-success make-bid-btn" bid="2"><fmt:message
+                        key="lot-page.up20"/></a>
+            </td>
         </tr>
         </tbody>
     </table>
-
 </div>
 <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
+<script src="/static/js/ajax/lotPage.js"></script>
 </body>
 </html>

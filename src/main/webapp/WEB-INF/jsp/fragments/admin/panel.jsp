@@ -29,7 +29,7 @@
             <h2 class="accordion-header" id="flush-headingOne">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Изменить статус пользователя
+                    <fmt:message key="admin.panel.change-status"/>
                 </button>
             </h2>
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
@@ -37,16 +37,17 @@
                 <form class="row g-3 p-3" id="change_status_form">
                     <div class="col-auto">
                         <input type="text" name="username" pattern="^[a-zA-Z0-9_]{1,16}$" class="form-control"
-                               id="change_status_username" placeholder="Username">
+                               id="change_status_username" placeholder="<fmt:message key="signup.form.username" />">
                     </div>
                     <div class="col-auto">
                         <select id="change_status_status" class="form-select" name="status">
-                            <option selected value="1">Registered</option>
-                            <option value="0">Banned</option>
+                            <option selected value="1"><fmt:message key="admin.panel.status.registered"/></option>
+                            <option value="0"><fmt:message key="admin.panel.status.banned"/></option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" id="change_status_submit" class="btn btn-primary mb-3">Изменить</button>
+                        <button type="submit" id="change_status_submit" class="btn btn-primary mb-3"><fmt:message
+                                key="admin.panel.change"/></button>
                     </div>
                 </form>
             </div>
@@ -55,14 +56,18 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle"><fmt:message
+                                    key="lots-page.table.lot-status"/></h5>
                         </div>
                         <div class="modal-body">
-                            <small class="success-change-status">Статус пользователя успешно изменен</small>
-                            <small class="failure-change-status d-none">Ошибка! Проверьте правильность логина</small>
+                            <small class="success-change-status"><fmt:message
+                                    key="admin.panel.success-change-status"/></small>
+                            <small class="failure-change-status d-none"><fmt:message
+                                    key="admin.panel.fail-change-status"/></small>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message
+                                    key="admin.panel.close"/></button>
                         </div>
                     </div>
                 </div>
@@ -72,7 +77,7 @@
             <h2 class="accordion-header" id="flush-headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                    Изменить роль пользователя
+                    <fmt:message key="admin.panel.change-role"/>
                 </button>
             </h2>
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
@@ -80,16 +85,17 @@
                 <form class="row g-3 p-3" id="change_role_form">
                     <div class="col-auto">
                         <input type="text" name="username" pattern="^[a-zA-Z0-9_]{1,16}$" class="form-control"
-                               id="change_role_username" placeholder="Username">
+                               id="change_role_username" placeholder="<fmt:message key="signup.form.username" />">
                     </div>
                     <div class="col-auto">
                         <select id="change_role_role" class="form-select" name="status">
-                            <option selected value="0">User</option>
-                            <option value="1">Admin</option>
+                            <option selected value="0"><fmt:message key="admin.panel.role.user"/></option>
+                            <option value="1"><fmt:message key="admin.panel.role.admin"/></option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" id="change_role_submit" class="btn btn-primary mb-3">Изменить</button>
+                        <button type="submit" id="change_role_submit" class="btn btn-primary mb-3"><fmt:message
+                                key="admin.panel.change"/></button>
                     </div>
                 </form>
             </div>
@@ -98,55 +104,23 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" >Role change</h5>
+                            <h5 class="modal-title"><fmt:message key="lots-page.table.lot-status"/></h5>
                         </div>
                         <div class="modal-body">
-                            <small class="success-change-role">Роль пользователя успешно изменен</small>
-                            <small class="failure-change-role d-none">Ошибка! Проверьте правильность логина</small>
+                            <small class="success-change-role"><fmt:message
+                                    key="admin.panel.role.success-role-change"/></small>
+                            <small class="failure-change-role d-none"><fmt:message
+                                    key="admin.panel.role.fail-role-change"/></small>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message
+                                    key="admin.panel.close"/></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                    Accordion Item #3
-                </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
-                 data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                    richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-                    quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-                    single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                    wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                    occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of
-                    them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
     </div>
-
-
-    <%--    <form class="row g-3">--%>
-    <%--        <div class="col-auto">--%>
-    <%--            <input type="text" class="form-control" id="username" placeholder="Username">--%>
-    <%--        </div>--%>
-    <%--        <div class="col-auto">--%>
-    <%--            <select id="inputState" class="form-select">--%>
-    <%--                <option selected>Registered</option>--%>
-    <%--                <option>BANNED</option>--%>
-    <%--            </select>--%>
-    <%--        </div>--%>
-    <%--        <div class="col-auto">--%>
-    <%--            <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>--%>
-    <%--        </div>--%>
-    <%--    </form>--%>
 </div>
 <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 </body>

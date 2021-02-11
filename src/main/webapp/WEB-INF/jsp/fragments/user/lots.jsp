@@ -9,9 +9,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.epam.auctions.entity.LotStatus" %>
 <%@ taglib prefix="time" uri="/WEB-INF/tags.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="${ not empty sessionScope.locale ? sessionScope.locale : pageContext.request.locale }"
+               scope="session"/>
+<fmt:setBundle basename="message"/>
 <c:forEach var="lot" items="${lots}">
     <tr id="lot${lot.id}">
-        <th scope="row"><c:out value="${lot.id}"/></th>
+        <th scope="row"><a href="/feed?command=get-lot&l=${lot.id}"><c:out value="${lot.id}"/></a></th>
         <td><img src="${lot.photoPath}" height="150" width="150" alt="default"/></td>
         <td>${lot.description}</td>
         <td>${lot.durationInMinutes}</td>
@@ -39,7 +43,8 @@
                     <form action="/feed" method="GET">
                         <input type="hidden" readonly name="command" value="edit-lot"/>
                         <input type="hidden" readonly name="lotId" value="${lot.id}"/>
-                        <button class="btn btn-success" type="submit" id="lot-edit-button">Edit</button>
+                        <button class="btn btn-success" type="submit" id="lot-edit-button"><fmt:message
+                                key="admin.panel.change"/></button>
                     </form>
                 </c:when>
                 <c:otherwise>

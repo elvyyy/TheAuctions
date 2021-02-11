@@ -13,7 +13,7 @@
 <fmt:setBundle basename="message"/>
 <html>
 <head>
-    <title>Title</title>
+    <title><fmt:message key="main.title" /></title>
     <link rel="stylesheet" href="/static/styles/index.css">
     <link rel="stylesheet" href="/static/styles/lots.css">
     <link rel="icon" href="static/media/icons/favicon16.png" type="image/png" sizes="16x16">
@@ -28,7 +28,6 @@
             <jsp:include page="fragments/aside.jsp"/>
         </aside>
         <main class="col-9">
-            <%--            <jsp:include page="${currentPage}"/>--%>
             <div id="lot-list" data-page-count="${pageCount}" data-page-number="1">
                 <table class="table">
                     <thead>
@@ -36,7 +35,6 @@
                         <th><fmt:message key="lots-page.table.first-column"/></th>
                         <th><fmt:message key="lots-page.table.second-column"/></th>
                         <th><fmt:message key="lots-page.table.third-column"/></th>
-                        <th><fmt:message key="lots-page.table.fourth-column"/></th>
                         <th><fmt:message key="lots-page.table.fifth-column"/></th>
                         <th><fmt:message key="lots-page.table.sixth-column"/></th>
                         <th><fmt:message key="lots-page.table.seventh-column"/></th>
@@ -48,7 +46,7 @@
                 </table>
                 <c:if test="${pageCount > 1}">
                     <div class="text-center">
-                        <a id="load-more" class="btn btn-success">Load More</a>
+                        <a id="load-more" class="btn btn-success"><fmt:message key="load-more" /></a>
                     </div>
                 </c:if>
             </div>

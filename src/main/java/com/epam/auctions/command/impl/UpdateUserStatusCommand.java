@@ -21,7 +21,7 @@ import java.util.Optional;
 public class UpdateUserStatusCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(UpdateUserStatusCommand.class);
 
-    private UserService userService;
+    private final UserService userService;
 
     public UpdateUserStatusCommand(UserService userService) {
         this.userService = userService;

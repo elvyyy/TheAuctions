@@ -10,7 +10,7 @@ public enum UserRole {
     USER(0),
     ADMIN(1);
 
-    private int id;
+    private final int id;
 
     UserRole(final int id) {
         this.id = id;

@@ -11,7 +11,7 @@ public enum LotStatus {
     COMPLETED(4),
     CANCELED(5);
 
-    private int id;
+    private final int id;
 
     LotStatus(final int id) {
         this.id = id;

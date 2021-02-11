@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class GetUserLotsCommand implements Command {
-    private LotService lotService;
+    private final LotService lotService;
 
     public GetUserLotsCommand(LotService lotService) {
         this.lotService = lotService;

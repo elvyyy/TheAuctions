@@ -18,10 +18,22 @@ import java.util.EnumSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The type Feed page filter.
+ */
 @WebFilter(filterName = "FeedPageFilter")
-public class FeedPageFilter extends AbstractFilter{
-    private Map<CommandType, Set<UserRole>> allowedCommandRoles = new EnumMap<>(CommandType.class);
+public class FeedPageFilter extends AbstractFilter {
+    /**
+     * Allowed {@link com.epam.auctions.command.Command}s for each {@link UserRole}
+     */
+    private final Map<CommandType, Set<UserRole>> allowedCommandRoles = new EnumMap<>(CommandType.class);
 
+    /**
+     * Initializes all allowed commands and its roles
+     *
+     * @param filterConfig
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         allowedCommandRoles.put(CommandType.GET_LOTS, EnumSet.of(UserRole.USER, UserRole.ADMIN));
@@ -43,8 +55,18 @@ public class FeedPageFilter extends AbstractFilter{
         allowedCommandRoles.put(CommandType.UPDATE_USER_STATUS, EnumSet.of(UserRole.ADMIN));
         allowedCommandRoles.put(CommandType.CREATE_LOT, EnumSet.of(UserRole.USER, UserRole.ADMIN));
         allowedCommandRoles.put(CommandType.GET_LOT, EnumSet.of(UserRole.USER, UserRole.ADMIN));
+        allowedCommandRoles.put(CommandType.MAKE_BID, EnumSet.of(UserRole.USER, UserRole.ADMIN));
     }
 
+    /**
+     * Checks whether user can use the command or cannot
+     *
+     * @param req         the req
+     * @param resp        the resp
+     * @param filterChain the filter chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         CommandType commandType = CommandFactory.INSTANCE.getCommandType(req);

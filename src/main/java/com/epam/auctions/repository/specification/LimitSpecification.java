@@ -2,14 +2,12 @@ package com.epam.auctions.repository.specification;
 
 import org.intellij.lang.annotations.Language;
 
-public class LimitSpecification implements SqlSpecification{
+/**
+ * The type Limit specification.
+ */
+public class LimitSpecification implements SqlSpecification {
     @Language("SQL")
     private final String SQL_SPECIFICATION = "LIMIT ? OFFSET ?";
-
-    @Override
-    public String getSql(String baseSql) {
-        return null;
-    }
 
     @Override
     public Object[] getParameters() {
@@ -19,5 +17,10 @@ public class LimitSpecification implements SqlSpecification{
     @Override
     public String getSpecification() {
         return SQL_SPECIFICATION;
+    }
+
+    @Override
+    public String getSql(String baseSql) {
+        return null;
     }
 }

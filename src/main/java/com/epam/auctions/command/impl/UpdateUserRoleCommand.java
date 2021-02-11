@@ -5,7 +5,6 @@ import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.command.CommandResult.ResponseType;
 import com.epam.auctions.entity.User;
 import com.epam.auctions.entity.UserRole;
-import com.epam.auctions.entity.UserStatus;
 import com.epam.auctions.service.UserService;
 import com.epam.auctions.util.WebUtils;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ import java.util.Optional;
 public class UpdateUserRoleCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(UpdateUserRoleCommand.class);
 
-    private UserService userService;
+    private final UserService userService;
 
     public UpdateUserRoleCommand(UserService userService) {
         this.userService = userService;

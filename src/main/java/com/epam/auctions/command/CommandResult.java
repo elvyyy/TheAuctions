@@ -1,26 +1,17 @@
 package com.epam.auctions.command;
 
 public class CommandResult {
-    public enum ResponseType {
-        FORWARD,
-        REDIRECT,
-        NO_ACTION
-    }
+    private String page;
     /**
      * {@link ResponseType} response type
      */
     private ResponseType responseType;
-    private String page;
-
     public CommandResult() {
     }
 
-    public ResponseType getResponseType() {
-        return responseType;
-    }
-
-    public void setResponseType(ResponseType responseType) {
+    public CommandResult(ResponseType responseType, String page) {
         this.responseType = responseType;
+        this.page = page;
     }
 
     public String getPage() {
@@ -31,8 +22,17 @@ public class CommandResult {
         this.page = page;
     }
 
-    public CommandResult(ResponseType responseType, String page) {
+    public ResponseType getResponseType() {
+        return responseType;
+    }
+
+    public void setResponseType(ResponseType responseType) {
         this.responseType = responseType;
-        this.page = page;
+    }
+
+    public enum ResponseType {
+        FORWARD,
+        REDIRECT,
+        NO_ACTION
     }
 }

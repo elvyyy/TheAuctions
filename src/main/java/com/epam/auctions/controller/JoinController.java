@@ -4,7 +4,6 @@ import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandFactory;
 import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.constant.Page;
-import com.epam.auctions.entity.User;
 import com.epam.auctions.util.WebUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * The type Join controller.
+ */
 @Slf4j
 @WebServlet(urlPatterns = "/join", name = "JoinController")
 public class JoinController extends HttpServlet {
@@ -38,6 +40,14 @@ public class JoinController extends HttpServlet {
         processRequest(req, resp);
     }
 
+    /**
+     * Processes all requests
+     *
+     * @param req
+     * @param resp
+     * @throws IOException
+     * @throws ServletException
+     */
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Command command = CommandFactory.INSTANCE.getCommand(req);
         CommandResult result = command.execute(req, resp);

@@ -12,6 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 
+/**
+ * The type User validator.
+ */
 public class UserValidator implements Validator {
 
     /**
@@ -20,9 +23,19 @@ public class UserValidator implements Validator {
      */
     private static final String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,36}$";
 
+    /**
+     * Instantiates a new User validator.
+     */
     public UserValidator() {
     }
 
+    /**
+     * Validates {@code HttpServletRequest}
+     *
+     * @param req
+     * @return {@code User}
+     * @throws FormValidationException if validation failed
+     */
     @Override
     public Entity<? extends Number> validate(HttpServletRequest req) throws FormValidationException {
         User user = new User();

@@ -3,7 +3,6 @@ package com.epam.auctions.command.impl;
 import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.constant.Constants;
-import com.epam.auctions.constant.Page;
 import com.epam.auctions.constant.Route;
 import com.epam.auctions.service.UserService;
 import com.epam.auctions.service.impl.UserServiceImpl;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(LoginCommand.class);
-    private UserService userService = UserServiceImpl.INSTANCE;
+    private final UserService userService = UserServiceImpl.INSTANCE;
 
     @Override
     public CommandResult execute(HttpServletRequest context, HttpServletResponse response) {

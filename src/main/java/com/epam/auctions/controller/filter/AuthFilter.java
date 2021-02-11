@@ -11,8 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Auth filter.
+ */
 @WebFilter(filterName = "AuthFilter")
 public class AuthFilter extends AbstractFilter {
+
+    /**
+     * Checked whether user is sign in or not
+     *
+     * @param req         the request
+     * @param resp        the response
+     * @param filterChain the filter chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         HttpSession session = req.getSession(false);
@@ -21,7 +34,5 @@ public class AuthFilter extends AbstractFilter {
         } else {
             filterChain.doFilter(req, resp);
         }
-        // TODO: turn on filter
-        //filterChain.doFilter(req, resp);
     }
 }

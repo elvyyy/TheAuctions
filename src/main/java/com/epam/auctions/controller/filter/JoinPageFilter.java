@@ -14,17 +14,33 @@ import java.io.IOException;
 import java.util.EnumSet;
 import java.util.Set;
 
+/**
+ * The type Join page filter.
+ */
 @WebFilter(filterName = "JoinPageFilter")
 public class JoinPageFilter extends AbstractFilter {
-    private Set<CommandType> joinPageAllowedCommands = EnumSet.of(
+    /**
+     * allowed commands for each {@link com.epam.auctions.entity.UserRole}
+     */
+    private final Set<CommandType> joinPageAllowedCommands = EnumSet.of(
             CommandType.GET_SIGNUP, CommandType.LOGIN,
             CommandType.LOGOUT, CommandType.GET_LOGIN,
-            CommandType.EXISTS, CommandType.SET_LOCALE);
+            CommandType.EXISTS, CommandType.SET_LOCALE,
+            CommandType.SIGNUP);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+    /**
+     * Checks whether user can use command or not
+     *
+     * @param req         the req
+     * @param resp        the resp
+     * @param filterChain the filter chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         final CommandType commandType = CommandFactory.INSTANCE.getCommandType(req);

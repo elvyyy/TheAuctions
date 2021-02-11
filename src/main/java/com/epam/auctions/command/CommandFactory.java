@@ -1,8 +1,6 @@
 package com.epam.auctions.command;
 
 import com.epam.auctions.constant.Constants;
-import com.epam.auctions.service.impl.UserServiceImpl;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

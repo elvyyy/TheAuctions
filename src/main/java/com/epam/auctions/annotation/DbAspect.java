@@ -17,9 +17,6 @@ public class DbAspect {
 
     private static final Logger log = LoggerFactory.getLogger(DbAspect.class);
 
-    @Pointcut("execution(public * *(..)) && @annotation(Transactional)")
-    public void transactionalMethods() {/* Empty */}
-
     @Around("transactionalMethods()")
     public Object procede(ProceedingJoinPoint call) throws Throwable {
         try (Connection connection = DBConnectionPool.INSTANCE.getConnection()) {
@@ -32,4 +29,7 @@ public class DbAspect {
             JDBCUtils.removeCurrentConnection();
         }
     }
+
+    @Pointcut("execution(public * *(..)) && @annotation(Transactional)")
+    public void transactionalMethods() {/* Empty */}
 }

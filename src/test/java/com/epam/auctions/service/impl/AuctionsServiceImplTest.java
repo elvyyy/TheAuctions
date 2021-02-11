@@ -59,10 +59,8 @@ public class AuctionsServiceImplTest {
 
         verify(executorService, times(1))
                 .schedule(any(Runnable.class), anyLong(), any(TimeUnit.class));
-        verify(lot, times(1))
-                .setLotStatus(eq(LotStatus.COMPLETED));
         verify(lotService, times(1))
-                .update(eq(lot));
+                .completeLot(eq(lot));
     }
 
 }

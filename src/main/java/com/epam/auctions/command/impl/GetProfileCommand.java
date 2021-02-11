@@ -4,7 +4,6 @@ import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.command.CommandResult.ResponseType;
 import com.epam.auctions.constant.Page;
-import com.epam.auctions.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -19,11 +19,21 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * The type Lot form create validator.
+ */
 public class LotFormCreateValidator implements Validator {
     private static final Logger LOG = LoggerFactory.getLogger(LotFormCreateValidator.class);
 
-    private LotService lotService = LotServiceImpl.INSTANCE;
+    private final LotService lotService = LotServiceImpl.INSTANCE;
 
+    /**
+     * Validates {@code HttpServletRequest}
+     *
+     * @param req
+     * @return {@code Lot}
+     * @throws FormValidationException if validation failed
+     */
     @Override
     public Entity<? extends Number> validate(HttpServletRequest req) throws FormValidationException {
         Lot lot = new Lot();
@@ -37,7 +47,6 @@ public class LotFormCreateValidator implements Validator {
         final Part photo = getImagePart(req);
         String relativePath = getImageRelativePath(photo, req);
         String absolutePath = req.getServletContext().getRealPath("/") + relativePath;
-//        String absolutePath = "/home/vlad/vlad/jwd-auctions/src/main/webapp/" + relativePath;
         lot.setPhotoPath(relativePath);
         try {
             FileUtils.writeStreamTo(photo.getInputStream(), absolutePath);
@@ -58,11 +67,23 @@ public class LotFormCreateValidator implements Validator {
         return lot;
     }
 
+    /**
+     * Gets time duration in minutes.
+     *
+     * @param req the req
+     * @return the time duration in minutes
+     */
     public int getTimeDurationInMinutes(HttpServletRequest req) {
         Integer choice = Integer.valueOf(req.getParameter("lot-time-duration"));
         return lotService.getDuration(choice);
     }
 
+    /**
+     * Gets image from {@code HttpServletRequest}
+     *
+     * @param req
+     * @return
+     */
     private Part getImagePart(HttpServletRequest req) {
         try {
             return req.getPart("lot-photo");
@@ -71,6 +92,13 @@ public class LotFormCreateValidator implements Validator {
         }
     }
 
+    /**
+     * Gets image relative path
+     *
+     * @param part
+     * @param req
+     * @return
+     */
     private String getImageRelativePath(Part part, HttpServletRequest req) {
         final String mimeType = req.getServletContext().getMimeType(part.getSubmittedFileName());
         if (mimeType.startsWith("image/")) {

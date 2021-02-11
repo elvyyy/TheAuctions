@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class CancelLotCommand implements Command {
-    private LotService lotService;
+    private final LotService lotService;
 
     public CancelLotCommand(LotService lotService) {
         this.lotService = lotService;

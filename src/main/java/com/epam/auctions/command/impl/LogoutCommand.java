@@ -2,7 +2,6 @@ package com.epam.auctions.command.impl;
 
 import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandResult;
-import com.epam.auctions.constant.Page;
 import com.epam.auctions.constant.Route;
 
 import javax.servlet.http.HttpServletRequest;

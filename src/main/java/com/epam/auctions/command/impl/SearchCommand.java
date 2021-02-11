@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class SearchCommand implements Command {
-    private LotService lotService;
+    private final LotService lotService;
 
     public SearchCommand(LotService lotService) {
         this.lotService = lotService;

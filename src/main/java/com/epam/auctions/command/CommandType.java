@@ -26,7 +26,6 @@ import com.epam.auctions.command.impl.UpdateLotCommand;
 import com.epam.auctions.command.impl.UpdateUserProfile;
 import com.epam.auctions.command.impl.UpdateUserRoleCommand;
 import com.epam.auctions.command.impl.UpdateUserStatusCommand;
-import com.epam.auctions.repository.impl.UserRepository;
 import com.epam.auctions.service.impl.AuctionServiceImpl;
 import com.epam.auctions.service.impl.LotBidServiceImpl;
 import com.epam.auctions.service.impl.LotServiceImpl;
@@ -40,7 +39,7 @@ public enum CommandType {
     LOGOUT(new LogoutCommand()),
     DEFAULT(new DefaultCommand()),
     SET_LOCALE(new SetLocaleCommand()),
-    EXISTS(new CheckUserExistingCommand(new UserRepository())),
+    EXISTS(new CheckUserExistingCommand(UserServiceImpl.INSTANCE)),
     GET_LOTS(new GetLotsCommand(LotServiceImpl.INSTANCE)),
     GET_CREATE_LOT(new GetCreateLotCommand()),
     CREATE_LOT(new CreateLotCommand(LotServiceImpl.INSTANCE)),
@@ -60,7 +59,7 @@ public enum CommandType {
     GET_LOT(new GetLotCommand(LotServiceImpl.INSTANCE, UserServiceImpl.INSTANCE)),
     MAKE_BID(new MakeBidCommand(LotServiceImpl.INSTANCE, LotBidServiceImpl.INSTANCE));
 
-    private Command command;
+    private final Command command;
 
     CommandType(Command command) {
         this.command = command;

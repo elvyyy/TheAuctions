@@ -21,7 +21,7 @@ import java.util.Optional;
 public class EditLotCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(EditLotCommand.class);
 
-    private LotService lotService;
+    private final LotService lotService;
 
     public EditLotCommand(LotService lotService) {
         this.lotService = lotService;
@@ -29,7 +29,7 @@ public class EditLotCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest context, HttpServletResponse response) throws IOException, ServletException {
-        int lotId = Integer.valueOf(context.getParameter("lotId"));
+        int lotId = Integer.parseInt(context.getParameter("lotId"));
         final User user = (User) context.getSession().getAttribute("user");
 
         final Optional<Lot> lot = lotService.findById(lotId);

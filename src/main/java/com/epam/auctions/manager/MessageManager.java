@@ -3,17 +3,31 @@ package com.epam.auctions.manager;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The enum Message manager.
+ */
 public enum MessageManager {
-    RU(ResourceBundle.getBundle("message.properties", new Locale("ru", "RU"))),
-    EN(ResourceBundle.getBundle("message.properties", new Locale("en", "EN"))),
-    BY(ResourceBundle.getBundle("message.properties", new Locale("by", "BY")));
+    /**
+     * The Ru resource bundle.
+     */
+    RU(ResourceBundle.getBundle("message", new Locale("ru"))),
+    /**
+     * The En resource bundle.
+     */
+    EN(ResourceBundle.getBundle("message", new Locale("en")));
 
-    private ResourceBundle bundle;
+    private final ResourceBundle bundle;
 
     MessageManager(ResourceBundle bundle) {
         this.bundle = bundle;
     }
 
+    /**
+     * Gets message.
+     *
+     * @param key the key
+     * @return the message
+     */
     public String getMessage(String key) {
         return bundle.getString(key);
     }

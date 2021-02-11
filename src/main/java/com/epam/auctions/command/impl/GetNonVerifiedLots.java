@@ -6,10 +6,7 @@ import com.epam.auctions.command.CommandResult.ResponseType;
 import com.epam.auctions.constant.Page;
 import com.epam.auctions.entity.Lot;
 import com.epam.auctions.entity.LotStatus;
-import com.epam.auctions.repository.specification.LimitSpecification;
 import com.epam.auctions.repository.specification.LotStatusSpecification;
-import com.epam.auctions.repository.specification.SqlSpecification;
-import com.epam.auctions.repository.specification.SqlSpecificationUtils;
 import com.epam.auctions.service.LotService;
 
 import javax.servlet.ServletException;
@@ -19,7 +16,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class GetNonVerifiedLots implements Command {
-    private LotService lotService;
+    private final LotService lotService;
 
     public GetNonVerifiedLots(LotService lotService) {
         this.lotService = lotService;

@@ -1,5 +1,6 @@
 package com.epam.auctions.db.impl;
 
+import com.epam.auctions.config.DatabaseProperties;
 import com.epam.auctions.db.ConnectionPool;
 import com.epam.auctions.exception.AllConnectionsBusy;
 import org.slf4j.Logger;
@@ -11,21 +12,26 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The type Db connection pool.
+ */
 public final class DBConnectionPool implements ConnectionPool {
-    private static final Logger log = LoggerFactory.getLogger(DBConnectionPool.class);
-
+    /**
+     * The constant INSTANCE.
+     */
     public static final DBConnectionPool INSTANCE = new DBConnectionPool();
-    private String url;
-    private String user;
-    private String password;
-    private BlockingQueue<Connection> availableConnections;
+    private static final Logger log = LoggerFactory.getLogger(DBConnectionPool.class);
+    final AtomicBoolean isReturnConnectionsToPool = new AtomicBoolean(true);
+
+    private final BlockingQueue<Connection> availableConnections;
 
     private DBConnectionPool() {
-        availableConnections = new ArrayBlockingQueue<>(20);
-        // TODO: property file injection
+        int poolSize = DatabaseProperties.getInstance().getPoolSize();
+        availableConnections = new ArrayBlockingQueue<>(poolSize);
         try {
-            createConnections(20);
+            createConnections(poolSize);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -37,7 +43,11 @@ public final class DBConnectionPool implements ConnectionPool {
             log.info("Creating connection #{}", i);
             try {
                 ConnectionProxy connection = new ConnectionProxy(
-                        DriverManager.getConnection(url, user, password)
+                        DriverManager.getConnection(
+                                DatabaseProperties.getInstance().getUrl(),
+                                DatabaseProperties.getInstance().getUser(),
+                                DatabaseProperties.getInstance().getPassword()
+                        )
                 );
                 availableConnections.add(connection);
             } catch (SQLException e) {
@@ -57,14 +67,14 @@ public final class DBConnectionPool implements ConnectionPool {
         try {
             connection = availableConnections.take();
         } catch (InterruptedException e) {
-            throw new AllConnectionsBusy("Waiting for an available connection took so long.");
+            throw new AllConnectionsBusy("Waiting for an available connection took so long. The thread was interrupted");
         }
         log.info("The connection has been retrieved");
         return connection;
     }
 
     /**
-     * Releases connection to the pool which always has a free place
+     * Releases connection to the pool
      *
      * @param connection
      * @return true
@@ -81,11 +91,12 @@ public final class DBConnectionPool implements ConnectionPool {
     @Override
     public void closeConnections() {
         log.info("Closing available connections");
+        isReturnConnectionsToPool.set(false);
         for (int i = 0; i < availableConnections.size(); i++) {
             try {
                 log.debug("Closing connection #{}", i);
                 final Connection connection = availableConnections.take();
-                ((ConnectionProxy) connection).realClose();
+                connection.close();
             } catch (SQLException | InterruptedException e) {
                 log.error("Some error occurred while closing connection #{}", i, e);
             }

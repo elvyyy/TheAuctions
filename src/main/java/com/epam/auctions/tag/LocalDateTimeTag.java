@@ -7,10 +7,25 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The type Local date time tag.
+ */
 public class LocalDateTimeTag extends TagSupport {
-    private LocalDateTime value;
+    /**
+     * time format
+     */
     private String format;
+    /**
+     * {@code LocalDateTime} value
+     */
+    private LocalDateTime value;
 
+    /**
+     * Formats {@code LocalDateTime}
+     *
+     * @return
+     * @throws JspException
+     */
     @Override
     public int doStartTag() throws JspException {
         JspWriter out = pageContext.getOut();
@@ -27,16 +42,26 @@ public class LocalDateTimeTag extends TagSupport {
         try {
             out.write(date);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new JspException(e);
         }
         return SKIP_BODY;
     }
 
-    public void setValue(LocalDateTime value) {
-        this.value = value;
-    }
-
+    /**
+     * Sets format.
+     *
+     * @param format the format
+     */
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    /**
+     * Sets value.
+     *
+     * @param value the value
+     */
+    public void setValue(LocalDateTime value) {
+        this.value = value;
     }
 }

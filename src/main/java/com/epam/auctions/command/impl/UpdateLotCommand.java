@@ -24,7 +24,7 @@ import java.util.Optional;
 public class UpdateLotCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(UpdateLotCommand.class);
 
-    private LotService lotService;
+    private final LotService lotService;
 
     public UpdateLotCommand(LotService lotService) {
         this.lotService = lotService;

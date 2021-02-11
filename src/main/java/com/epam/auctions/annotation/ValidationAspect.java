@@ -12,20 +12,14 @@ import java.util.regex.Pattern;
 
 @Aspect
 public class ValidationAspect {
-    private static final Logger log = LoggerFactory.getLogger("class");
     private static final Pattern emailPattern = Pattern.compile("^([a-z0-9_.-]+)@([a-z0-9_.-]+)\\.([a-z.]{2,6})$");
+    private static final Logger log = LoggerFactory.getLogger("class");
     private static final Pattern namePattern = Pattern.compile("^[\\p{L} ,.'-]{1,20}$");
     private static final Pattern passwordPattern = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,36}$");
 
 
     @Pointcut("set(@com.epam.auctions.annotation.Email private * *.*) && args(email)")
     public void allEmailSetters(String email) {/* Empty */}
-
-    @Pointcut("set(@Name private * *.*) && args(name)")
-    public void firstAndLastNameSetters(String name) {/* Empty */}
-
-    @Pointcut("set(@Password private * *.*) && args(newValue)")
-    public void passwordSetterChecker(String newValue) {/* Empty */}
 
     @Before("allEmailSetters(email)")
     public void checkEmail(JoinPoint joinPoint, String email) {
@@ -53,4 +47,10 @@ public class ValidationAspect {
             throw new RuntimeException("Password is incorrect");
         }
     }
+
+    @Pointcut("set(@Name private * *.*) && args(name)")
+    public void firstAndLastNameSetters(String name) {/* Empty */}
+
+    @Pointcut("set(@Password private * *.*) && args(newValue)")
+    public void passwordSetterChecker(String newValue) {/* Empty */}
 }

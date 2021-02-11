@@ -5,13 +5,61 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class LotBid {
-    private int lotId;
-    private BigDecimal currentBid;
-    private String createdBy;
     private LocalDateTime createdAt;
+    private String createdBy;
+    private BigDecimal currentBid;
+    private int lotId;
 
     public LotBid() {
         createdAt = LocalDateTime.now();
+    }
+
+    public LotBid(int lotId, BigDecimal currentBid, String createdBy) {
+        this(lotId, currentBid, createdBy, LocalDateTime.now());
+    }
+
+    public LotBid(int lotId, BigDecimal currentBid, String createdBy, LocalDateTime createdAt) {
+        this.lotId = lotId;
+        this.currentBid = currentBid;
+        this.createdBy = createdBy;
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public BigDecimal getCurrentBid() {
+        return currentBid;
+    }
+
+    public void setCurrentBid(BigDecimal currentBid) {
+        this.currentBid = currentBid;
+    }
+
+    public int getLotId() {
+        return lotId;
+    }
+
+    public void setLotId(int lotId) {
+        this.lotId = lotId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lotId, currentBid, createdBy, createdAt);
     }
 
     @Override
@@ -31,53 +79,5 @@ public class LotBid {
         sb.append(", createdAt=").append(createdAt);
         sb.append('}');
         return sb.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(lotId, currentBid, createdBy, createdAt);
-    }
-
-    public int getLotId() {
-        return lotId;
-    }
-
-    public void setLotId(int lotId) {
-        this.lotId = lotId;
-    }
-
-    public BigDecimal getCurrentBid() {
-        return currentBid;
-    }
-
-    public void setCurrentBid(BigDecimal currentBid) {
-        this.currentBid = currentBid;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LotBid(int lotId, BigDecimal currentBid, String createdBy) {
-        this(lotId, currentBid, createdBy, LocalDateTime.now());
-    }
-
-    public LotBid(int lotId, BigDecimal currentBid, String createdBy, LocalDateTime createdAt) {
-        this.lotId = lotId;
-        this.currentBid = currentBid;
-        this.createdBy = createdBy;
-        this.createdAt = createdAt;
     }
 }

@@ -3,15 +3,9 @@ package com.epam.auctions.command.impl;
 import com.epam.auctions.command.Command;
 import com.epam.auctions.command.CommandResult;
 import com.epam.auctions.constant.Constants;
-import com.epam.auctions.entity.User;
-import com.epam.auctions.exception.RepositoryException;
-import com.epam.auctions.repository.Repository;
-import com.epam.auctions.repository.specification.EmailSpecification;
-import com.epam.auctions.repository.specification.UsernameSpecification;
+import com.epam.auctions.service.UserService;
 import com.epam.auctions.util.WebUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,10 +18,10 @@ import java.util.Optional;
 public class CheckUserExistingCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(CheckUserExistingCommand.class);
 
-    private Repository<User> repository;
+    private final UserService userService;
 
-    public CheckUserExistingCommand(Repository<User> repository) {
-        this.repository = repository;
+    public CheckUserExistingCommand(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -36,23 +30,14 @@ public class CheckUserExistingCommand implements Command {
         Optional<String> expectedUsername = Optional.ofNullable(context.getParameter(Constants.USERNAME.value()));
         ResponseInfo responseInfo = new ResponseInfo();
 
-        expectedUsername.ifPresent(username ->
-        {
-            try {
-                long count = repository.count(new UsernameSpecification(), username);
-                responseInfo.setNumberOfUsername(count);
-            } catch (RepositoryException e) {
-                LOG.error("", e);
-            }
+
+        expectedUsername.ifPresent(username -> {
+            final boolean usernameExists = userService.isUsernameExists(username);
+            responseInfo.setNumberOfUsername(usernameExists ? 1 : 0);
         });
-        expectedEmail.ifPresent(email ->
-        {
-            try {
-                long count = repository.count(new EmailSpecification(), email);
-                responseInfo.setNumberOfEmail(count);
-            } catch (RepositoryException e) {
-                LOG.error("", e);
-            }
+        expectedEmail.ifPresent(email -> {
+            boolean emailExists = userService.isEmailExists(email);
+            responseInfo.setNumberOfEmail(emailExists ? 1 : 0);
         });
 
         fillOutWithJsonResponse(response, responseInfo);

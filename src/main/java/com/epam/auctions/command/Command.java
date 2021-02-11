@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- *  Standard command interface.
- *  Every command must represent this interface.
+ * Standard command interface.
+ * Every command must represent this interface.
  */
 @FunctionalInterface
 public interface Command {

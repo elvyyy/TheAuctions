@@ -22,10 +22,19 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+/**
+ * The type Connection proxy, which doesn't not close
+ * connection and returns it into connection pool instead.
+ */
 @Slf4j
 public class ConnectionProxy implements Connection {
-    private Connection connection;
+    private final Connection connection;
 
+    /**
+     * Instantiates a new Connection proxy.
+     *
+     * @param connection the connection
+     */
     public ConnectionProxy(Connection connection) {
         this.connection = connection;
     }
@@ -51,11 +60,17 @@ public class ConnectionProxy implements Connection {
     }
 
     @Override
+    public <T> T unwrap(Class<T> aClass) throws SQLException {
+        return connection.unwrap(aClass);
+    }    @Override
     public void setAutoCommit(boolean b) throws SQLException {
         connection.setAutoCommit(b);
     }
 
     @Override
+    public boolean isWrapperFor(Class<?> aClass) throws SQLException {
+        return connection.isWrapperFor(aClass);
+    }    @Override
     public boolean getAutoCommit() throws SQLException {
         return connection.getAutoCommit();
     }
@@ -74,12 +89,13 @@ public class ConnectionProxy implements Connection {
      * Releases connection to the connection pool {@link DBConnectionPool}
      */
     @Override
-    public void close() {
-        DBConnectionPool.INSTANCE.releaseConnection(this);
-    }
-
-    public void realClose() throws SQLException {
-        connection.close();
+    public void close() throws SQLException {
+        DBConnectionPool pool = DBConnectionPool.INSTANCE;
+        if (pool.isReturnConnectionsToPool.get()) {
+            pool.releaseConnection(this);
+        } else {
+            connection.close();
+        }
     }
 
     @Override
@@ -327,13 +343,7 @@ public class ConnectionProxy implements Connection {
         connection.setShardingKey(shardingKey);
     }
 
-    @Override
-    public <T> T unwrap(Class<T> aClass) throws SQLException {
-        return connection.unwrap(aClass);
-    }
 
-    @Override
-    public boolean isWrapperFor(Class<?> aClass) throws SQLException {
-        return connection.isWrapperFor(aClass);
-    }
+
+
 }

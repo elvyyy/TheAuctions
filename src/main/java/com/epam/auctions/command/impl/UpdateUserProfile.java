@@ -18,7 +18,7 @@ import java.io.IOException;
 public class UpdateUserProfile implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(UpdateUserProfile.class);
 
-    private UserService userService;
+    private final UserService userService;
 
     public UpdateUserProfile(UserService userService) {
         this.userService = userService;

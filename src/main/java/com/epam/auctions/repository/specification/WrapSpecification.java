@@ -1,15 +1,18 @@
 package com.epam.auctions.repository.specification;
 
-public class WrapSpecification implements SqlSpecification{
-    private String sql;
+/**
+ * The type Wrap specification.
+ */
+public class WrapSpecification implements SqlSpecification {
+    private final String sql;
 
+    /**
+     * Instantiates a new Wrap specification.
+     *
+     * @param sql the sql
+     */
     WrapSpecification(String sql) {
         this.sql = sql;
-    }
-
-    @Override
-    public String getSql(String baseSql) {
-        return String.join(" ", baseSql, sql);
     }
 
     @Override
@@ -20,5 +23,10 @@ public class WrapSpecification implements SqlSpecification{
     @Override
     public String getSpecification() {
         return sql;
+    }
+
+    @Override
+    public String getSql(String baseSql) {
+        return String.join(" ", baseSql, sql);
     }
 }

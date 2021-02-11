@@ -6,6 +6,19 @@ import java.util.Objects;
 public abstract class Entity<T> implements Serializable {
     T id;
 
+    public T getId() {
+        return id;
+    }
+
+    public void setId(T id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -20,18 +33,5 @@ public abstract class Entity<T> implements Serializable {
         sb.append("id=").append(id);
         sb.append('}');
         return sb.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public T getId() {
-        return id;
-    }
-
-    public void setId(T id) {
-        this.id = id;
     }
 }

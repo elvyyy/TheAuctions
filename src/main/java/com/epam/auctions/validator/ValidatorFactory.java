@@ -12,15 +12,29 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Validator factory.
+ */
 public class ValidatorFactory {
     private static final Logger LOG = LoggerFactory.getLogger(ValidatorFactory.class);
-    private static Map<Class<? extends Entity>, Class<? extends Validator>> validators = new HashMap<>();
+
+    /**
+     * Map that contains class validators
+     */
+    private static final Map<Class<? extends Entity>, Class<? extends Validator>> validators = new HashMap<>();
 
     static {
         validators.put(User.class, UserValidator.class);
         validators.put(Lot.class, LotFormCreateValidator.class);
     }
 
+    /**
+     * Gets validator.
+     *
+     * @param <T>   the type parameter
+     * @param clazz the clazz
+     * @return the validator, or null of validator does not exist
+     */
     public static <T extends Entity<? extends Number>> Validator<T> getValidator(Class<T> clazz) {
         try {
             return (Validator<T>) validators.get(clazz).getDeclaredConstructor().newInstance();

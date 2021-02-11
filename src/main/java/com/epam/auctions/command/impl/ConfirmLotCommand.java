@@ -25,9 +25,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ConfirmLotCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(ConfirmLotCommand.class);
-
-    private LotService lotService;
-    private AuctionService auctionService;
+    private final AuctionService auctionService;
+    private final LotService lotService;
 
     public ConfirmLotCommand(LotService lotService, AuctionService auctionService) {
         this.lotService = lotService;

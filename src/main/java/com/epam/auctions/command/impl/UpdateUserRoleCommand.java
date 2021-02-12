@@ -41,22 +41,8 @@ public class UpdateUserRoleCommand implements Command {
         } catch (RuntimeException e) {
             LOG.error("Cannot update user role");
         }
-        String jsonAnswer = getJsonBooleanResponse(insertResult);
-        response.getWriter().write(jsonAnswer);
-        return new CommandResult(ResponseType.NO_ACTION, WebUtils.getCurrentRequestUrl(context));
-    }
-
-    private String getJsonBooleanResponse(boolean flag) {
-        final JsonObject result;
-        if (flag) {
-            result = Json.createObjectBuilder()
-                    .add("result", "ok")
-                    .build();
-        } else {
-            result = Json.createObjectBuilder()
-                    .add("result", "none")
-                    .build();
-        }
-        return result.toString();
+        return insertResult
+                ? WebUtils.responseOk(context, response)
+                : WebUtils.responseFail(context, response);
     }
 }

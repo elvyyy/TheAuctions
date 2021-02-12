@@ -40,7 +40,7 @@ public final class DBConnectionPool implements ConnectionPool {
     private void createConnections(final int numberOfConnections) throws ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         for (int i = 0; i < numberOfConnections; i++) {
-            log.info("Creating connection #{}", i);
+//            log.info("Creating connection #{}", i);
             try {
                 ConnectionProxy connection = new ConnectionProxy(
                         DriverManager.getConnection(

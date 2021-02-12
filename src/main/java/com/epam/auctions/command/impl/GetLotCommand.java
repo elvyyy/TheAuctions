@@ -30,7 +30,6 @@ public class GetLotCommand implements Command {
                     .findById(lotId)
                     .map(lot -> {
                         context.setAttribute("lot", lot);
-                        //userService.findById(lot.getId());
                         lotService.getMaxBid(lot.getId()).ifPresent(maxBid -> context.setAttribute("bid", maxBid));
                         return new CommandResult(ResponseType.FORWARD, Page.LOT_PAGE.getPage());
                     }).orElseGet(() -> new CommandResult(ResponseType.REDIRECT, Route.FEED_PAGE.getRoute()));

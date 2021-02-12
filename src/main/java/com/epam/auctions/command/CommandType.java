@@ -57,7 +57,7 @@ public enum CommandType {
     SEARCH(new SearchCommand(LotServiceImpl.INSTANCE)),
     CONFIRM_LOT(new ConfirmLotCommand(LotServiceImpl.INSTANCE, AuctionServiceImpl.INSTANCE)),
     GET_LOT(new GetLotCommand(LotServiceImpl.INSTANCE, UserServiceImpl.INSTANCE)),
-    MAKE_BID(new MakeBidCommand(LotServiceImpl.INSTANCE, LotBidServiceImpl.INSTANCE));
+    MAKE_BID(new MakeBidCommand(LotServiceImpl.INSTANCE));
 
     private final Command command;
 

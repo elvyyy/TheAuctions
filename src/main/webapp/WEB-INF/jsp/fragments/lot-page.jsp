@@ -96,7 +96,7 @@
             </th>
         </tr>
         <tr>
-            <td><a href="#" class="btn btn-primary">Continue Shopping</a></td>
+            <td><a href="/feed?command=get-lots" class="btn btn-primary"><fmt:message key="lot-page.feed" /></a></td>
             <td colspan="3">
                 <a href="#" class="pull-right btn btn-success make-bid-btn" bid="1"><fmt:message
                         key="lot-page.up10"/></a>

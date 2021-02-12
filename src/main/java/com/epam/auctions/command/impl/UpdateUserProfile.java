@@ -6,6 +6,7 @@ import com.epam.auctions.command.CommandResult.ResponseType;
 import com.epam.auctions.constant.Constants;
 import com.epam.auctions.constant.Route;
 import com.epam.auctions.entity.User;
+import com.epam.auctions.exception.RepositoryException;
 import com.epam.auctions.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +31,12 @@ public class UpdateUserProfile implements Command {
         try {
             populateUserWithUpdatedFields(context, user);
             userService.update(user);
-        } catch (RuntimeException e) {
+        } catch (RepositoryException e) {
             LOG.error("Cannot update the profile", e);
+            userService.findById(user.getId())
+                    .ifPresent(u -> {
+                        context.getSession().setAttribute("user", u);
+                    });
         }
         return new CommandResult(ResponseType.REDIRECT, Route.USER_PROFILE.getRoute());
     }
